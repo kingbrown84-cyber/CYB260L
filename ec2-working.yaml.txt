@@ -1,4 +1,4 @@
-#Volume size 
+#Changed template for EC2 Template
 #2.3
 #9/23/26
 AWSTemplateFormatVersion: "2010-09-09"
@@ -12,11 +12,11 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       BlockDeviceMappings:
-      - DeviceName: /dev/sdm
-        Ebs:
-          VolumeType: gp2
-          DeleteOnTermination: false
-          VolumeSize: 20
+     	- DeviceName: /dev/sdm
+          Ebs:
+            VolumeType: gp2
+            DeleteOnTermination: false
+            VolumeSize: 20
       ImageId: !Ref LatestAmiId
       KeyName: !Ref AWS::AccountId
       InstanceType: t2.micro
