@@ -1,0 +1,74 @@
+#Created VPC template
+#4.2
+#9/26/26
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >
+  Creates a VPC in US-West-2 spanning three Availability Zones
+  with one subnet in each Availability Zone.
+
+Resources:
+
+  # VPC with a /16 CIDR block.
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: VPC-deobro9667
+
+  # Subnet 1 in the first Availability Zone.
+  Subnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: us-west-2
+      CidrBlock: 10.0.1.0/24
+      Tags:
+        - Key: Name
+          Value: VPC-deobro9667-Subnet1
+
+  # Subnet 2 in the second Availability Zone.
+  Subnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: us-west-2b
+      CidrBlock: 10.0.2.0/24
+      Tags:
+        - Key: Name
+          Value: VPC-deobro9667-Subnet2
+
+  # Subnet 3 in the third Availability Zone.
+  Subnet3:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref VPC
+      AvailabilityZone: us-west-2c
+      CidrBlock: 10.0.3.0/24
+      Tags:
+        - Key: Name
+          Value: VPC-deobro9667-Subnet3
+
+Outputs:
+
+  # Displays the VPC ID after the stack is created.
+  VPCId:
+    Description: ID of the created VPC.
+    Value: !Ref VPC
+
+  # Displays the VPC name after the stack is created.
+  VPCName:
+    Description: Name of the created VPC.
+    Value: VPC-deobro9667
+
+  # Displays the three subnet IDs.
+  SubnetIds:
+    Description: IDs of the three VPC subnets.
+    Value: !Join
+      - ','
+      - - !Ref Subnet1
+        - !Ref Subnet2
+        - !Ref Subnet3
